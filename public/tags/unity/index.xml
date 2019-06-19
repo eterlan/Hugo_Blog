@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Unity on Hello Friend NG</title>
-    <link>https://example.com/tags/unity/</link>
-    <description>Recent content in Unity on Hello Friend NG</description>
+    <title>Unity on Greeting.</title>
+    <link>https://eterlan.github.io/tags/unity/</link>
+    <description>Recent content in Unity on Greeting.</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Wed, 19 Jun 2019 14:40:12 +0800</lastBuildDate>
     
-	<atom:link href="https://example.com/tags/unity/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://eterlan.github.io/tags/unity/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>ECS 单元测试教学</title>
-      <link>https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</link>
+      <link>https://eterlan.github.io/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</link>
       <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
       
-      <guid>https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</guid>
+      <guid>https://eterlan.github.io/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</guid>
       <description>网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。
 第一步 打开Unity单元测试的界面 位于Window/General/TestRunner。
 第二步 建立TestFolder 位于Assets/Create/Test/Test Assembly Folder
@@ -26,6 +26,32 @@ FAQ：
  为什么只勾上Editor？  因为我们只在编辑器内需要这块代码。
  写好待测试的系统system与组件component  这里待测试的是ref关键字能否作用到嵌套struct中的内容。
 system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem { protected override void OnUpdate() { Entities.ForEach((ref T t) =&amp;gt; { t.point.X += 1; t.forTest += 1; }); } } component using System; using Unity.Entities;[Serializable] public struct T : IComponentData { public Point point; public int forTest; } public struct Point { public int X; public int Y; } 写单元测试 准备工作 翻一翻源码，可以看到Unity自个儿的单元测试是继承自ECSTestFixture，其目的是做一些准备工作。我们也有样学样，否则的话World 和 EntityManager都是空值。</description>
+    </item>
+    
+    <item>
+      <title>Test behavior of nested struct in Unity ECS</title>
+      <link>https://eterlan.github.io/posts/2019/06/test-behavior-of-nested-struct-in-unity-ecs/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/test-behavior-of-nested-struct-in-unity-ecs/</guid>
+      <description>Official ForEach test -&amp;gt; Unity.Entities.Tests/ForEach/ForEachGeneralTests.cs
+Nested Struct Test using NUnit.Framework;[TestFixture] public class UpdateNestedStructTests : ECSTestsFixture {[Test] public void _0_Update_Normal_Var() { var entity = m_Manager.CreateEntity(typeof(T)); World.GetOrCreateSystem&amp;lt;UpdateNestedStruct&amp;gt;().Update(); var target = m_Manager.GetComponentData&amp;lt;T&amp;gt;(entity).forTest; Assert.AreEqual(1,target); }[Test] public void _1_Update_Nested_Struct() { var entity = m_Manager.CreateEntity(typeof(T)); World.GetOrCreateSystem&amp;lt;UpdateNestedStruct&amp;gt;().Update(); var target = m_Manager.GetComponentData&amp;lt;T&amp;gt;(entity).point.X; Assert.AreEqual(1,target); } } UpdateBufferVar Test using NUnit.Framework;[TestFixture] public class UpdateBufferVarTest : ECSTestsFixture {[Test] public void _0_Update_One_Var() { var entity = m_Manager.CreateEntity(typeof(U)); World.GetOrCreateSystem&amp;lt;UpdateBufferWithMultipleElement&amp;gt;().Update(); var target = m_Manager.</description>
+    </item>
+    
+    <item>
+      <title>如何使用Unity ECS打造Reactive System？</title>
+      <link>https://eterlan.github.io/posts/2019/06/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8unity-ecs%E6%89%93%E9%80%A0reactive-system/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8unity-ecs%E6%89%93%E9%80%A0reactive-system/</guid>
+      <description>结构变化 所谓结构变化，即是Entity添加删除Component，诸如此类。追踪办法有两种。
+1. 使用SystemStateComponent 原理 所谓State，含义是只能被手动删除的Component，在删除Entity后，依然留下做一些殿后工作，只有被指名要求删除的时候才会被删除。这种特性就让我们可以通过不同的Query去获得结构变化的消息。
+栗子  假设我们有一个Entity，身上有两个组件，A：IComponentData 与 B: ISystemStateComponentData 当我们添加A组件的时候，通过Filter{ 有A无B }，我们可以在别处得知这个Entity何时被添加。在添加后手动加入B组件。 当我们删除Entity，或者移除A组件的时候，通过Filter { 有B无A }，同理可得知何时这个Entity被移除或是A组件被移除。  更具体的实现可以在查看官方对于ParentSystem的设计。
+2. 查询ComponentVersion 每当出现某Component相关的结构性变化的时候，该Component的版本就会+1 。
+EntityManager.GetComponentVersion() 数据变化 顾名思义。方法有三种。
+1. Chunk检查 原理  GlobalSystemVersion为记录一个世界所有系统更新信息的版本号。在每一个系统更新之前，GSV++。 LastSystemVersion为系统记录自己的版本号。在某系统更新之后，它会保存GSV，含义是上次运行时的版本号，直到下次某系统更新之后，它的版本号不会更改 每一种Component，在System申请写入权限的时候，都会记录该System的LSV 获取方式为chunk.GetArch  因此，if ( ComponentVer &amp;gt; LSV ) 说明该Component被修改了（有系统获得了写入权限）。而之所以不用考虑等于，是因为除非只有1个系统，不然是不会有等于的情况的，不能理解的话可以画图思考一下。
+注意这个信息时效性只有一帧，从上次该系统更新后到这次更新后的一帧，因此在这次更新中，修改Component后查询是否改变，答案是True，反之为False。
+举例  系统的更新顺序为A-&amp;gt;B-&amp;gt;C-&amp;gt;A 那么GSV ：0 -&amp;gt; 1 -&amp;gt; 2 -&amp;gt; 3，每个系统更新之前+1 当数据在B系统被写入，Component就记住了B的GSV = 1 当我们在第二次轮到A系统的时候监测是否Component被改动，DidChange自动使用A系统上次的GSV记录 LSV = 0 与 Component记录的信息CV = 1做对比，发现CV &amp;gt; LSV，得知信息已经被更改了，返回True。  API chunk.</description>
     </item>
     
   </channel>

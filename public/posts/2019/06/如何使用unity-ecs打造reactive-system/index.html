@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="eterlan ">
+<meta name="description"
+    content="结构变化 所谓结构变化，即是Entity添加删除Component，诸如此类。追踪办法有两种。
+1. 使用SystemStateComponent 原理 所谓State，含义是只能被手动删除的Component，在删除Entity后，依然留下做一些殿后工作，只有被指名要求删除的时候才会被删除。这种特性就让我们可以通过不同的Query去获得结构变化的消息。
+栗子  假设我们有一个Entity，身上有两个组件，A：IComponentData 与 B: ISystemStateComponentData 当我们添加A组件的时候，通过Filter{ 有A无B }，我们可以在别处得知这个Entity何时被添加。在添加后手动加入B组件。 当我们删除Entity，或者移除A组件的时候，通过Filter { 有B无A }，同理可得知何时这个Entity被移除或是A组件被移除。  更具体的实现可以在查看官方对于ParentSystem的设计。
+2. 查询ComponentVersion 每当出现某Component相关的结构性变化的时候，该Component的版本就会&#43;1 。
+EntityManager.GetComponentVersion() 数据变化 顾名思义。方法有三种。
+1. Chunk检查 原理  GlobalSystemVersion为记录一个世界所有系统更新信息的版本号。在每一个系统更新之前，GSV&#43;&#43;。 LastSystemVersion为系统记录自己的版本号。在某系统更新之后，它会保存GSV，含义是上次运行时的版本号，直到下次某系统更新之后，它的版本号不会更改 每一种Component，在System申请写入权限的时候，都会记录该System的LSV 获取方式为chunk.GetArch  因此，if ( ComponentVer &amp;gt; LSV ) 说明该Component被修改了（有系统获得了写入权限）。而之所以不用考虑等于，是因为除非只有1个系统，不然是不会有等于的情况的，不能理解的话可以画图思考一下。
+注意这个信息时效性只有一帧，从上次该系统更新后到这次更新后的一帧，因此在这次更新中，修改Component后查询是否改变，答案是True，反之为False。
+举例  系统的更新顺序为A-&amp;gt;B-&amp;gt;C-&amp;gt;A 那么GSV ：0 -&amp;gt; 1 -&amp;gt; 2 -&amp;gt; 3，每个系统更新之前&#43;1 当数据在B系统被写入，Component就记住了B的GSV = 1 当我们在第二次轮到A系统的时候监测是否Component被改动，DidChange自动使用A系统上次的GSV记录 LSV = 0 与 Component记录的信息CV = 1做对比，发现CV &amp;gt; LSV，得知信息已经被更改了，返回True。  API chunk." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://eterlan.github.io/posts/2019/06/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8unity-ecs%E6%89%93%E9%80%A0reactive-system/" />
+
+
+<title>
+    
+    如何使用Unity ECS打造Reactive System？ :: Greeting.  — Hello Friend NG Theme
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.min.d90905eb29b71569a516566cd9662312bee9ab021c760de6949cdc92d6688be9.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="如何使用Unity ECS打造Reactive System？">
+<meta itemprop="description" content="结构变化 所谓结构变化，即是Entity添加删除Component，诸如此类。追踪办法有两种。
+1. 使用SystemStateComponent 原理 所谓State，含义是只能被手动删除的Component，在删除Entity后，依然留下做一些殿后工作，只有被指名要求删除的时候才会被删除。这种特性就让我们可以通过不同的Query去获得结构变化的消息。
+栗子  假设我们有一个Entity，身上有两个组件，A：IComponentData 与 B: ISystemStateComponentData 当我们添加A组件的时候，通过Filter{ 有A无B }，我们可以在别处得知这个Entity何时被添加。在添加后手动加入B组件。 当我们删除Entity，或者移除A组件的时候，通过Filter { 有B无A }，同理可得知何时这个Entity被移除或是A组件被移除。  更具体的实现可以在查看官方对于ParentSystem的设计。
+2. 查询ComponentVersion 每当出现某Component相关的结构性变化的时候，该Component的版本就会&#43;1 。
+EntityManager.GetComponentVersion() 数据变化 顾名思义。方法有三种。
+1. Chunk检查 原理  GlobalSystemVersion为记录一个世界所有系统更新信息的版本号。在每一个系统更新之前，GSV&#43;&#43;。 LastSystemVersion为系统记录自己的版本号。在某系统更新之后，它会保存GSV，含义是上次运行时的版本号，直到下次某系统更新之后，它的版本号不会更改 每一种Component，在System申请写入权限的时候，都会记录该System的LSV 获取方式为chunk.GetArch  因此，if ( ComponentVer &gt; LSV ) 说明该Component被修改了（有系统获得了写入权限）。而之所以不用考虑等于，是因为除非只有1个系统，不然是不会有等于的情况的，不能理解的话可以画图思考一下。
+注意这个信息时效性只有一帧，从上次该系统更新后到这次更新后的一帧，因此在这次更新中，修改Component后查询是否改变，答案是True，反之为False。
+举例  系统的更新顺序为A-&gt;B-&gt;C-&gt;A 那么GSV ：0 -&gt; 1 -&gt; 2 -&gt; 3，每个系统更新之前&#43;1 当数据在B系统被写入，Component就记住了B的GSV = 1 当我们在第二次轮到A系统的时候监测是否Component被改动，DidChange自动使用A系统上次的GSV记录 LSV = 0 与 Component记录的信息CV = 1做对比，发现CV &gt; LSV，得知信息已经被更改了，返回True。  API chunk.">
+
+
+<meta itemprop="datePublished" content="2019-06-19T14:40:12&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-19T14:40:12&#43;08:00" />
+<meta itemprop="wordCount" content="167">
+
+
+
+<meta itemprop="keywords" content="Unity,ECS,Tutorial,Reactive System,System Design," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://eterlan.github.io"/>
+
+<meta name="twitter:title" content="如何使用Unity ECS打造Reactive System？"/>
+<meta name="twitter:description" content="结构变化 所谓结构变化，即是Entity添加删除Component，诸如此类。追踪办法有两种。
+1. 使用SystemStateComponent 原理 所谓State，含义是只能被手动删除的Component，在删除Entity后，依然留下做一些殿后工作，只有被指名要求删除的时候才会被删除。这种特性就让我们可以通过不同的Query去获得结构变化的消息。
+栗子  假设我们有一个Entity，身上有两个组件，A：IComponentData 与 B: ISystemStateComponentData 当我们添加A组件的时候，通过Filter{ 有A无B }，我们可以在别处得知这个Entity何时被添加。在添加后手动加入B组件。 当我们删除Entity，或者移除A组件的时候，通过Filter { 有B无A }，同理可得知何时这个Entity被移除或是A组件被移除。  更具体的实现可以在查看官方对于ParentSystem的设计。
+2. 查询ComponentVersion 每当出现某Component相关的结构性变化的时候，该Component的版本就会&#43;1 。
+EntityManager.GetComponentVersion() 数据变化 顾名思义。方法有三种。
+1. Chunk检查 原理  GlobalSystemVersion为记录一个世界所有系统更新信息的版本号。在每一个系统更新之前，GSV&#43;&#43;。 LastSystemVersion为系统记录自己的版本号。在某系统更新之后，它会保存GSV，含义是上次运行时的版本号，直到下次某系统更新之后，它的版本号不会更改 每一种Component，在System申请写入权限的时候，都会记录该System的LSV 获取方式为chunk.GetArch  因此，if ( ComponentVer &gt; LSV ) 说明该Component被修改了（有系统获得了写入权限）。而之所以不用考虑等于，是因为除非只有1个系统，不然是不会有等于的情况的，不能理解的话可以画图思考一下。
+注意这个信息时效性只有一帧，从上次该系统更新后到这次更新后的一帧，因此在这次更新中，修改Component后查询是否改变，答案是True，反之为False。
+举例  系统的更新顺序为A-&gt;B-&gt;C-&gt;A 那么GSV ：0 -&gt; 1 -&gt; 2 -&gt; 3，每个系统更新之前&#43;1 当数据在B系统被写入，Component就记住了B的GSV = 1 当我们在第二次轮到A系统的时候监测是否Component被改动，DidChange自动使用A系统上次的GSV记录 LSV = 0 与 Component记录的信息CV = 1做对比，发现CV &gt; LSV，得知信息已经被更改了，返回True。  API chunk."/>
+
+
+
+
+<meta property="article:published_time" content="2019-06-19 14:40:12 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://eterlan.github.io/about/">About</a></li><li><a href="https://eterlan.github.io/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>One minute
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://eterlan.github.io/posts/2019/06/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8unity-ecs%E6%89%93%E9%80%A0reactive-system/">如何使用Unity ECS打造Reactive System？</a></h1>
+                <hr />
+                <aside id="toc">
+                <div class="toc-title">Table of Contents</div>
+                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#结构变化">结构变化</a>
+<ul>
+<li><a href="#1-使用systemstatecomponent">1. 使用SystemStateComponent</a>
+<ul>
+<li><a href="#原理">原理</a></li>
+<li><a href="#栗子">栗子</a></li>
+</ul></li>
+<li><a href="#2-查询componentversion">2. 查询ComponentVersion</a></li>
+</ul></li>
+<li><a href="#数据变化">数据变化</a>
+<ul>
+<li><a href="#1-chunk检查">1. Chunk检查</a>
+<ul>
+<li><a href="#原理-1">原理</a></li>
+<li><a href="#举例">举例</a></li>
+<li><a href="#api">API</a></li>
+<li><a href="#2-query自动检查">2. Query自动检查</a></li>
+</ul></li>
+<li><a href="#3-ijobforeach中使用-changefilter">3. IJobForEach中使用 [ChangeFilter]</a>
+<ul>
+<li><a href="#示例">示例</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#reference">Reference</a></li>
+</ul></li>
+</ul>
+</nav>
+                </aside>
+                <hr />
+
+            
+
+            <div class="post-content">
+                
+
+<h2 id="结构变化">结构变化</h2>
+
+<p>所谓结构变化，即是Entity添加删除Component，诸如此类。追踪办法有两种。</p>
+
+<h3 id="1-使用systemstatecomponent">1. 使用SystemStateComponent</h3>
+
+<h4 id="原理">原理</h4>
+
+<p>所谓State，含义是只能被手动删除的Component，在删除Entity后，依然留下做一些殿后工作，只有被指名要求删除的时候才会被删除。这种特性就让我们可以通过不同的Query去获得结构变化的消息。</p>
+
+<h4 id="栗子">栗子</h4>
+
+<ol>
+<li>假设我们有一个Entity，身上有两个组件，A：IComponentData 与 B: ISystemStateComponentData</li>
+<li>当我们添加A组件的时候，通过Filter{ 有A无B }，我们可以在别处得知这个Entity何时被添加。在添加后手动加入B组件。</li>
+<li>当我们删除Entity，或者移除A组件的时候，通过Filter { 有B无A }，同理可得知何时这个Entity被移除或是A组件被移除。</li>
+</ol>
+
+<p>更具体的实现可以在查看官方对于ParentSystem的设计。</p>
+
+<h3 id="2-查询componentversion">2. 查询ComponentVersion</h3>
+
+<p>每当出现某Component相关的结构性变化的时候，该Component的版本就会+1 。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#">EntityManager.GetComponentVersion()</code></pre></div>
+<h2 id="数据变化">数据变化</h2>
+
+<p>顾名思义。方法有三种。</p>
+
+<h3 id="1-chunk检查">1. Chunk检查</h3>
+
+<h4 id="原理-1">原理</h4>
+
+<ol>
+<li>GlobalSystemVersion为记录一个世界所有系统更新信息的版本号。在每一个系统更新<strong>之前</strong>，GSV++。</li>
+<li>LastSystemVersion为系统记录自己的版本号。在某系统更新<strong>之后</strong>，它会保存GSV，含义是<strong>上次</strong>运行时的版本号，直到下次某系统更新之后，它的版本号不会更改</li>
+<li>每一种Component，在System申请写入权限的时候，都会记录该System的LSV
+获取方式为chunk.GetArch</li>
+</ol>
+
+<p>因此，if ( ComponentVer &gt; LSV ) 说明该Component被修改了（有系统获得了写入权限）。而之所以不用考虑等于，是因为除非只有1个系统，不然是不会有等于的情况的，不能理解的话可以画图思考一下。</p>
+
+<p>注意这个信息时效性只有一帧，从上次该系统更新后到这次更新后的一帧，因此在这次更新中，修改Component后查询是否改变，答案是True，反之为False。</p>
+
+<h4 id="举例">举例</h4>
+
+<ol>
+<li>系统的更新顺序为A-&gt;B-&gt;C-&gt;A</li>
+<li>那么GSV ：0 -&gt; 1 -&gt; 2 -&gt; 3，每个系统更新之前+1</li>
+<li>当数据在B系统被写入，Component就记住了B的GSV = 1</li>
+<li>当我们在第二次轮到A系统的时候监测是否Component被改动，DidChange自动使用A系统上次的GSV记录 LSV = 0 与 Component记录的信息CV = 1做对比，发现CV &gt; LSV，得知信息已经被更改了，返回True。</li>
+</ol>
+
+<h4 id="api">API</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#">chunk.DidChange(InputAType, LastSystemVersion);</code></pre></div>
+<p>注意LSV应从EntityManager.LastSystemVersion取得，并传入Job</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#a6e22e">[BurstCompile]</span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">UpdateJob</span> : IJobChunk
+{
+   <span style="color:#66d9ef">public</span> ArchetypeChunkComponentType&lt;InputA&gt; InputAType;
+   <span style="color:#66d9ef">public</span> ArchetypeChunkComponentType&lt;InputB&gt; InputBType;<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">   [ReadOnly]</span> <span style="color:#66d9ef">public</span> ArchetypeChunkComponentType&lt;Output&gt; OutputType;
+   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">uint</span> LastSystemVersion;
+
+   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Execute(ArchetypeChunk chunk, <span style="color:#66d9ef">int</span> chunkIndex, <span style="color:#66d9ef">int</span> firstEntityIndex)
+   {
+       <span style="color:#66d9ef">var</span> inputAChanged = chunk.DidChange(InputAType, LastSystemVersion);
+       <span style="color:#66d9ef">var</span> inputBChanged = chunk.DidChange(InputBType, LastSystemVersion);
+       <span style="color:#66d9ef">if</span> (!(inputAChanged || inputBChanged))
+           <span style="color:#66d9ef">return</span>;
+      <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<h4 id="2-query自动检查">2. Query自动检查</h4>
+
+<p>在声明Query的时候，特别注明</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#">m_Group.SetFilterChanged(<span style="color:#66d9ef">new</span> ComponentType{ <span style="color:#66d9ef">typeof</span>(InputA), <span style="color:#66d9ef">typeof</span>(InputB)});</code></pre></div>
+<p>这样Query就会把没被修改的ComponentType排除在外。注意，这种检查是Component层级，而不是单个Entity层级的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#">EntityQuery m_Group;
+<span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> OnCreate()
+{
+   m_Group = GetEntityQuery(<span style="color:#66d9ef">typeof</span>(Output), 
+                               ComponentType.ReadOnly&lt;InputA&gt;(), 
+                               ComponentType.ReadOnly&lt;InputB&gt;());
+   m_Group.SetFilterChanged(<span style="color:#66d9ef">new</span> ComponentType{ <span style="color:#66d9ef">typeof</span>(InputA), <span style="color:#66d9ef">typeof</span>(InputB)});
+}</code></pre></div>
+<h3 id="3-ijobforeach中使用-changefilter">3. IJobForEach中使用 [ChangeFilter]</h3>
+
+<p>与Query的排除效果类似。</p>
+
+<h4 id="示例">示例</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c#" data-lang="c#"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ProcessTendency</span> : IJobForEachWithEntity&lt;HumanState, HumanStock&gt;
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> Execute(Entity entity, <span style="color:#66d9ef">int</span> index,<span style="color:#a6e22e"> [ChangedFilter]</span> <span style="color:#66d9ef">ref</span> State state)
+    {</code></pre></div>
+<h2 id="reference">Reference</h2>
+
+<p><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration_job.html" target="_blank">UNITY - ECS Packages</a></p>
+
+<p><a href="https://gametorrahod.com/designing-an-efficient-system-with-version-numbers/" target="_blank">designing-an-efficient-system-with-version-numbers/ - 5argon</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://eterlan.github.io/tags/unity">Unity</a></span><span class="tag"><a href="https://eterlan.github.io/tags/ecs">ECS</a></span><span class="tag"><a href="https://eterlan.github.io/tags/tutorial">Tutorial</a></span><span class="tag"><a href="https://eterlan.github.io/tags/reactive-system">Reactive System</a></span><span class="tag"><a href="https://eterlan.github.io/tags/system-design">System Design</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>167 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-06-19 14:40 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://eterlan.github.io/posts/2019/06/%E5%89%91%E4%B8%89%E5%BE%80%E4%BA%8B/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">剑三往事</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://eterlan.github.io/posts/2019/06/%E8%87%AA%E5%BC%BA%E4%B9%8B%E8%B7%AF/">
+                                <span class="button__text">自强之路</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://eterlan.github.io">eterlan</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://eterlan.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>

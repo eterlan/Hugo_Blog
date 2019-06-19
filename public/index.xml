@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hello Friend NG</title>
-    <link>https://example.com/</link>
-    <description>Recent content on Hello Friend NG</description>
+    <title>Greeting.</title>
+    <link>https://eterlan.github.io/</link>
+    <description>Recent content on Greeting.</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Wed, 19 Jun 2019 14:40:12 +0800</lastBuildDate>
     
-	<atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://eterlan.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>ECS 单元测试教学</title>
-      <link>https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</link>
+      <link>https://eterlan.github.io/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</link>
       <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
       
-      <guid>https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</guid>
+      <guid>https://eterlan.github.io/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</guid>
       <description>网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。
 第一步 打开Unity单元测试的界面 位于Window/General/TestRunner。
 第二步 建立TestFolder 位于Assets/Create/Test/Test Assembly Folder
@@ -29,14 +29,114 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
     </item>
     
     <item>
-      <title>About</title>
-      <link>https://example.com/about/</link>
-      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
+      <title>GameStoryWeek2</title>
+      <link>https://eterlan.github.io/posts/2019/06/gamestoryweek2/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
       
-      <guid>https://example.com/about/</guid>
-      <description>Hugo is the world’s fastest framework for building websites. It is written in Go.
-It makes use of a variety of open source projects including:
- https://github.com/russross/blackfriday https://github.com/alecthomas/chroma https://github.com/muesli/smartcrop https://github.com/spf13/cobra https://github.com/spf13/viper  Learn more and contribute on GitHub.</description>
+      <guid>https://eterlan.github.io/posts/2019/06/gamestoryweek2/</guid>
+      <description>Instruction Pick a popular story or film that you are very familiar with. You are encouraged to use the same story or film you used in the Week 1 assignment. If not, you may choose a new film or story, but pick one you need not watch again for the purposes of this assignment. For this assignment, you are asked to begin fleshing out your selected film or story into a more detailed description for a possible game.</description>
+    </item>
+    
+    <item>
+      <title>GameStoryWeek3</title>
+      <link>https://eterlan.github.io/posts/2019/06/gamestoryweek3/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/gamestoryweek3/</guid>
+      <description>Review About Idea Sheets In the previous lectures, we discussed creating Idea Sheets to generate ideas and thoughts on various aspects of your game story. These lists are for you to freestyle brainstorm thoughts onto paper to commit them to words, without judgement or hesitation. The concept is to allow yourself free-form creativity and just throw these ideas, however useful they may end up being, down on paper. As you may recall, the Idea Sheets I recommend are for the following:</description>
+    </item>
+    
+    <item>
+      <title>Jane and Jack</title>
+      <link>https://eterlan.github.io/posts/2019/06/jane-and-jack/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/jane-and-jack/</guid>
+      <description>Jane and Jack some thinking&amp;hellip;before the writing  no bad guys, think they have to do that. why you have to do that? robbory?killing is too much. why you have to do that? all about crime? something not allowed? illegel? thief. that&amp;rsquo;s bit better. what ? all crime? what about not moral ? that&amp;rsquo;s a lot better. why it always havr to be wrong? what about some unfortunate? or good=&amp;gt;bad=&amp;gt;good?</description>
+    </item>
+    
+    <item>
+      <title>My favourite Game - The Last of Us</title>
+      <link>https://eterlan.github.io/posts/2019/06/my-favourite-game-the-last-of-us/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/my-favourite-game-the-last-of-us/</guid>
+      <description>World Design for Video Game - Week 1 Knowing what you like is a good thing. The point of this reflective assignment is to isolate and analyze the aspects of a game world that keep you playing and interested in the game.
+To begin, pick one game (not a game series–just one game!) you feel strongly about. Use the title of the game as your project title. To help your peers, please include a reference URL to your game–a Wiki, an image, or the game itself.</description>
+    </item>
+    
+    <item>
+      <title>Regex Note</title>
+      <link>https://eterlan.github.io/posts/2019/06/regex-note/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/regex-note/</guid>
+      <description>Regular Expression,正则表达式.历史悠久,其下又分了诸派,大同小异.今天便介绍其中最好上手的PCRE2一派. 表面都是些平常多见的字母与符号,暗地却尽是些叛徒. 主要分为:
+ 字母里有几个能偷偷叛变的的间谍,它们大同小异,都是匹配一些空白处的.
+ \n换行 \s所有空格 \S所有非空格 \r回车  符号这边也有几个间谍,它们其中又分两个派别
+ 四眼仔 代表位置  ^ 我近视&amp;hellip;这一串什么玩意儿啊,我就看到了第一个. $ 我远视&amp;hellip;这一串玩意儿我就看到了最后一个.   吃货代表数量  暴食  * 我的胃口从0到无限大! + 我的胃口从1到无限大!  有节制  ? 瞧瞧你们那样儿!丢不丢人呐,我最多吃一个 ? 不仅不贪吃,还不许别人贪吃.只要它跟在另外两个暴食者后面,就会起到监督的作用,让两人见好就好. {2}俺们东北人只吃两个馒头~少了我不干~依阿伊阿伊啊~~~ {2,}窝得广东银,最少要次两过啦! {2,3}二三之间~天昏地暗~    然后就是括号啦,尽是些大佬
+ ()小括号是间谍头子,要罩住自己人.括号里的兄弟我们风雨同舟!一起玩贪玩蓝月! []中括号是  最后一个 \ 它是世外高人,能帮助间谍背叛阵营,或者帮叛徒重回阵营
+  </description>
+    </item>
+    
+    <item>
+      <title>Test behavior of nested struct in Unity ECS</title>
+      <link>https://eterlan.github.io/posts/2019/06/test-behavior-of-nested-struct-in-unity-ecs/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/test-behavior-of-nested-struct-in-unity-ecs/</guid>
+      <description>Official ForEach test -&amp;gt; Unity.Entities.Tests/ForEach/ForEachGeneralTests.cs
+Nested Struct Test using NUnit.Framework;[TestFixture] public class UpdateNestedStructTests : ECSTestsFixture {[Test] public void _0_Update_Normal_Var() { var entity = m_Manager.CreateEntity(typeof(T)); World.GetOrCreateSystem&amp;lt;UpdateNestedStruct&amp;gt;().Update(); var target = m_Manager.GetComponentData&amp;lt;T&amp;gt;(entity).forTest; Assert.AreEqual(1,target); }[Test] public void _1_Update_Nested_Struct() { var entity = m_Manager.CreateEntity(typeof(T)); World.GetOrCreateSystem&amp;lt;UpdateNestedStruct&amp;gt;().Update(); var target = m_Manager.GetComponentData&amp;lt;T&amp;gt;(entity).point.X; Assert.AreEqual(1,target); } } UpdateBufferVar Test using NUnit.Framework;[TestFixture] public class UpdateBufferVarTest : ECSTestsFixture {[Test] public void _0_Update_One_Var() { var entity = m_Manager.CreateEntity(typeof(U)); World.GetOrCreateSystem&amp;lt;UpdateBufferWithMultipleElement&amp;gt;().Update(); var target = m_Manager.</description>
+    </item>
+    
+    <item>
+      <title>剑三往事</title>
+      <link>https://eterlan.github.io/posts/2019/06/%E5%89%91%E4%B8%89%E5%BE%80%E4%BA%8B/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/%E5%89%91%E4%B8%89%E5%BE%80%E4%BA%8B/</guid>
+      <description>一闭上眼，六年前的事历历在目，仿佛就发生在不久之前。实在是太可怕了，我不得不起身写下这些文字，以求丝毫慰藉。我记得，为了情缘抛弃的帮派，这个由师父一手建立，创立伊始我便参与其中的帮派。帮派最后的覆灭如摧枯拉朽，元老们的心血被付之一炬。我记得，欠下师姐的大扇子，让我一直无颜面对她。我记得一直为我出谋划策的亦风，A的时候我甚至没有前去合影。我记得因为贪玩，没有去挽回的前情缘。我记得我贪图技术，臭不要脸的拜了一个又一个万花师父。我记得一直陪我成长的师父，听到我队伍里不是在常跟你提起的她，错愕却又试图掩饰的语气。我记得师父不辞辛劳，一个boos一个boss讲解，我却转头去打pvp，真的十分抱歉，如果再来一次我想说去tm的pvp，有时间一定多陪陪你。
+我记得荻花的太多太多，我记得每一个陪我刷笛子的朋友，我记得慕容追风的语气语调。。&amp;rdquo;原来是些故人。&amp;rdquo;
+六年啊，如弹指之间，令人难以置信。我对不起很多人，我为我的自私和狭隘向你们道歉，我为每次不辞而别感到羞愧。我深深的感受到我是有罪的。不然为何每个曾关心过我的人都离我而去？旧日那些欢乐的时光与今日的形单只影形成了鲜明的对比，这不过是咎由自取罢了。台上炙烈的聚光灯打在我身上。电影早已散场，我却徒留原地。我想念你们，但又期盼你们能别像我一样，戴上往日的镣铐，难以挣脱。忘却吧，往事如云烟，时光不可辜负。我因过去的傲慢与愚蠢而无法向你们传达歉意与祝福，但我想一个人默默地祝福你们，衷心的祝福你们。</description>
+    </item>
+    
+    <item>
+      <title>如何使用Unity ECS打造Reactive System？</title>
+      <link>https://eterlan.github.io/posts/2019/06/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8unity-ecs%E6%89%93%E9%80%A0reactive-system/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8unity-ecs%E6%89%93%E9%80%A0reactive-system/</guid>
+      <description>结构变化 所谓结构变化，即是Entity添加删除Component，诸如此类。追踪办法有两种。
+1. 使用SystemStateComponent 原理 所谓State，含义是只能被手动删除的Component，在删除Entity后，依然留下做一些殿后工作，只有被指名要求删除的时候才会被删除。这种特性就让我们可以通过不同的Query去获得结构变化的消息。
+栗子  假设我们有一个Entity，身上有两个组件，A：IComponentData 与 B: ISystemStateComponentData 当我们添加A组件的时候，通过Filter{ 有A无B }，我们可以在别处得知这个Entity何时被添加。在添加后手动加入B组件。 当我们删除Entity，或者移除A组件的时候，通过Filter { 有B无A }，同理可得知何时这个Entity被移除或是A组件被移除。  更具体的实现可以在查看官方对于ParentSystem的设计。
+2. 查询ComponentVersion 每当出现某Component相关的结构性变化的时候，该Component的版本就会+1 。
+EntityManager.GetComponentVersion() 数据变化 顾名思义。方法有三种。
+1. Chunk检查 原理  GlobalSystemVersion为记录一个世界所有系统更新信息的版本号。在每一个系统更新之前，GSV++。 LastSystemVersion为系统记录自己的版本号。在某系统更新之后，它会保存GSV，含义是上次运行时的版本号，直到下次某系统更新之后，它的版本号不会更改 每一种Component，在System申请写入权限的时候，都会记录该System的LSV 获取方式为chunk.GetArch  因此，if ( ComponentVer &amp;gt; LSV ) 说明该Component被修改了（有系统获得了写入权限）。而之所以不用考虑等于，是因为除非只有1个系统，不然是不会有等于的情况的，不能理解的话可以画图思考一下。
+注意这个信息时效性只有一帧，从上次该系统更新后到这次更新后的一帧，因此在这次更新中，修改Component后查询是否改变，答案是True，反之为False。
+举例  系统的更新顺序为A-&amp;gt;B-&amp;gt;C-&amp;gt;A 那么GSV ：0 -&amp;gt; 1 -&amp;gt; 2 -&amp;gt; 3，每个系统更新之前+1 当数据在B系统被写入，Component就记住了B的GSV = 1 当我们在第二次轮到A系统的时候监测是否Component被改动，DidChange自动使用A系统上次的GSV记录 LSV = 0 与 Component记录的信息CV = 1做对比，发现CV &amp;gt; LSV，得知信息已经被更改了，返回True。  API chunk.</description>
+    </item>
+    
+    <item>
+      <title>自强之路</title>
+      <link>https://eterlan.github.io/posts/2019/06/%E8%87%AA%E5%BC%BA%E4%B9%8B%E8%B7%AF/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/%E8%87%AA%E5%BC%BA%E4%B9%8B%E8%B7%AF/</guid>
+      <description>近期周所周知的原因，全世界都在关注华为。
+任总受华为对外敏感关系部的请求，近期接受了非常多的采访。从中可一窥巨头的处世哲学。
+一开始我十分想不通，为何面对世界最强国家的接连打击，他总在赞美美国？他那真诚地微笑，从容地应对，让人很难与虚伪挂钩，但为什么？
+任老表示，别把用华为手机与爱国联系在一起，华为手机只是个产品，你喜欢就用，不喜欢就不用。我的家人也有很多用苹果的。
+这种道德捆绑于产品的进步毫无帮助，。爱它就要把它放在严酷的环境中自然竞争，让它越来越强大。
+特朗普帮我们省了100亿美元的广告费，1000亿美元的供应商违约费。
+女儿被抓，任老表示：&amp;rdquo;不经历磨难，怎能成就大事？&amp;rdquo;
+应对外媒的提问，任老表示：&amp;rdquo;最让我兴奋的事是特朗普打压华为，内部的滲透使堡垒腐蚀，外部的打压使堡垒坚固。”任总坦言，30年的时间让华为逐渐的腐化，堕落了。
+其实放到国家的层面何尝不是如此？80后90后已经和平太久了，短短不到百年前的历史距离这一代人似乎遥不可及。
+君不见叙利亚驻联合国代表向英美法代表申辩时，三方代表悍然离场，徒留他一人在一角默默叹气。弱国无外交。硝烟也许被其他方式掩盖，但世界还是那个弱肉强食的世界。
+任老接受的采访愈多，我惊讶的发现，这个面带微笑，赞美对手的老人，他是真的在摩拳擦掌，兴奋地睡不着觉。
+华为做下的每个决策放在今天来看，都正确无比，令人肃然起敬。包括不上市，不上市就不在乎财务报表，没有压力就可以不在乎外界的压力而专心搞研发。以及自研自用，不外销高科技技术。自研意味着自立，别人无法釜底抽薪，不外销意味着。包括与贫困地区交易，尽管不赚钱，但达到了将自研产品放到实际场景去应用的目的。
+这种宽广的胸襟，将中华民族数千年的智慧轻描淡写地展示给了所有人。以前常说，民国之后无大家，但事实证明，大家确实是存在的，但在平日里不显山露水。
+谢谢任老的教诲，吾辈当谨记于心。
+p.s. 本人语言水平比较差，很多话仅仅是组织一下油管上的社论。</description>
     </item>
     
   </channel>

@@ -1,40 +1,103 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Hello Friend NG</title>
-    <link>https://example.com/tags/</link>
-    <description>Recent content in Tags on Hello Friend NG</description>
+    <title>Tags on Greeting.</title>
+    <link>https://eterlan.github.io/tags/</link>
+    <description>Recent content in Tags on Greeting.</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Wed, 19 Jun 2019 14:40:12 +0800</lastBuildDate>
     
-	<atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://eterlan.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Coursera</title>
+      <link>https://eterlan.github.io/tags/coursera/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/tags/coursera/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Ecs</title>
-      <link>https://example.com/tags/ecs/</link>
+      <link>https://eterlan.github.io/tags/ecs/</link>
       <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
       
-      <guid>https://example.com/tags/ecs/</guid>
+      <guid>https://eterlan.github.io/tags/ecs/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Unit Test</title>
-      <link>https://example.com/tags/unit-test/</link>
+      <title>Favor</title>
+      <link>https://eterlan.github.io/tags/favor/</link>
       <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
       
-      <guid>https://example.com/tags/unit-test/</guid>
+      <guid>https://eterlan.github.io/tags/favor/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Unity</title>
-      <link>https://example.com/tags/unity/</link>
+      <title>Game Design Course</title>
+      <link>https://eterlan.github.io/tags/game-design-course/</link>
       <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
       
-      <guid>https://example.com/tags/unity/</guid>
+      <guid>https://eterlan.github.io/tags/game-design-course/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Homework</title>
+      <link>https://eterlan.github.io/tags/homework/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/tags/homework/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Memo</title>
+      <link>https://eterlan.github.io/tags/memo/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/tags/memo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Note</title>
+      <link>https://eterlan.github.io/tags/note/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/tags/note/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reactive System</title>
+      <link>https://eterlan.github.io/tags/reactive-system/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/tags/reactive-system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regex</title>
+      <link>https://eterlan.github.io/tags/regex/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/tags/regex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Story</title>
+      <link>https://eterlan.github.io/tags/story/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/tags/story/</guid>
       <description></description>
     </item>
     

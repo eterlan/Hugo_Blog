@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="eterlan ">
+<meta name="description"
+    content="Regular Expression,正则表达式.历史悠久,其下又分了诸派,大同小异.今天便介绍其中最好上手的PCRE2一派. 表面都是些平常多见的字母与符号,暗地却尽是些叛徒. 主要分为:
+ 字母里有几个能偷偷叛变的的间谍,它们大同小异,都是匹配一些空白处的.
+ \n换行 \s所有空格 \S所有非空格 \r回车  符号这边也有几个间谍,它们其中又分两个派别
+ 四眼仔 代表位置  ^ 我近视&amp;hellip;这一串什么玩意儿啊,我就看到了第一个. $ 我远视&amp;hellip;这一串玩意儿我就看到了最后一个.   吃货代表数量  暴食  * 我的胃口从0到无限大! &#43; 我的胃口从1到无限大!  有节制  ? 瞧瞧你们那样儿!丢不丢人呐,我最多吃一个 ? 不仅不贪吃,还不许别人贪吃.只要它跟在另外两个暴食者后面,就会起到监督的作用,让两人见好就好. {2}俺们东北人只吃两个馒头~少了我不干~依阿伊阿伊啊~~~ {2,}窝得广东银,最少要次两过啦! {2,3}二三之间~天昏地暗~    然后就是括号啦,尽是些大佬
+ ()小括号是间谍头子,要罩住自己人.括号里的兄弟我们风雨同舟!一起玩贪玩蓝月! []中括号是  最后一个 \ 它是世外高人,能帮助间谍背叛阵营,或者帮叛徒重回阵营
+  " />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://eterlan.github.io/posts/2019/06/regex-note/" />
+
+
+<title>
+    
+    Regex Note :: Greeting.  — Hello Friend NG Theme
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.min.d90905eb29b71569a516566cd9662312bee9ab021c760de6949cdc92d6688be9.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="Regex Note">
+<meta itemprop="description" content="Regular Expression,正则表达式.历史悠久,其下又分了诸派,大同小异.今天便介绍其中最好上手的PCRE2一派. 表面都是些平常多见的字母与符号,暗地却尽是些叛徒. 主要分为:
+ 字母里有几个能偷偷叛变的的间谍,它们大同小异,都是匹配一些空白处的.
+ \n换行 \s所有空格 \S所有非空格 \r回车  符号这边也有几个间谍,它们其中又分两个派别
+ 四眼仔 代表位置  ^ 我近视&hellip;这一串什么玩意儿啊,我就看到了第一个. $ 我远视&hellip;这一串玩意儿我就看到了最后一个.   吃货代表数量  暴食  * 我的胃口从0到无限大! &#43; 我的胃口从1到无限大!  有节制  ? 瞧瞧你们那样儿!丢不丢人呐,我最多吃一个 ? 不仅不贪吃,还不许别人贪吃.只要它跟在另外两个暴食者后面,就会起到监督的作用,让两人见好就好. {2}俺们东北人只吃两个馒头~少了我不干~依阿伊阿伊啊~~~ {2,}窝得广东银,最少要次两过啦! {2,3}二三之间~天昏地暗~    然后就是括号啦,尽是些大佬
+ ()小括号是间谍头子,要罩住自己人.括号里的兄弟我们风雨同舟!一起玩贪玩蓝月! []中括号是  最后一个 \ 它是世外高人,能帮助间谍背叛阵营,或者帮叛徒重回阵营
+  ">
+
+
+<meta itemprop="datePublished" content="2019-06-19T14:40:12&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-19T14:40:12&#43;08:00" />
+<meta itemprop="wordCount" content="36">
+
+
+
+<meta itemprop="keywords" content="Note,Regex," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://eterlan.github.io"/>
+
+<meta name="twitter:title" content="Regex Note"/>
+<meta name="twitter:description" content="Regular Expression,正则表达式.历史悠久,其下又分了诸派,大同小异.今天便介绍其中最好上手的PCRE2一派. 表面都是些平常多见的字母与符号,暗地却尽是些叛徒. 主要分为:
+ 字母里有几个能偷偷叛变的的间谍,它们大同小异,都是匹配一些空白处的.
+ \n换行 \s所有空格 \S所有非空格 \r回车  符号这边也有几个间谍,它们其中又分两个派别
+ 四眼仔 代表位置  ^ 我近视&hellip;这一串什么玩意儿啊,我就看到了第一个. $ 我远视&hellip;这一串玩意儿我就看到了最后一个.   吃货代表数量  暴食  * 我的胃口从0到无限大! &#43; 我的胃口从1到无限大!  有节制  ? 瞧瞧你们那样儿!丢不丢人呐,我最多吃一个 ? 不仅不贪吃,还不许别人贪吃.只要它跟在另外两个暴食者后面,就会起到监督的作用,让两人见好就好. {2}俺们东北人只吃两个馒头~少了我不干~依阿伊阿伊啊~~~ {2,}窝得广东银,最少要次两过啦! {2,3}二三之间~天昏地暗~    然后就是括号啦,尽是些大佬
+ ()小括号是间谍头子,要罩住自己人.括号里的兄弟我们风雨同舟!一起玩贪玩蓝月! []中括号是  最后一个 \ 它是世外高人,能帮助间谍背叛阵营,或者帮叛徒重回阵营
+  "/>
+
+
+
+
+<meta property="article:published_time" content="2019-06-19 14:40:12 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://eterlan.github.io/about/">About</a></li><li><a href="https://eterlan.github.io/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>One minute
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://eterlan.github.io/posts/2019/06/regex-note/">Regex Note</a></h1>
+
+            
+
+            <div class="post-content">
+                <p>Regular Expression,正则表达式.历史悠久,其下又分了诸派,大同小异.今天便介绍其中最好上手的PCRE2一派.
+表面都是些平常多见的字母与符号,暗地却尽是些叛徒.
+主要分为:</p>
+
+<ul>
+<li><p>字母里有几个能偷偷叛变的的间谍,它们大同小异,都是匹配一些空白处的.</p>
+
+<ul>
+<li>\n换行</li>
+<li>\s所有空格</li>
+<li>\S所有非空格</li>
+<li>\r回车</li>
+</ul></li>
+
+<li><p>符号这边也有几个间谍,它们其中又分两个派别</p>
+
+<ul>
+<li>四眼仔 代表位置
+
+<ul>
+<li>^ 我近视&hellip;这一串什么玩意儿啊,我就看到了第一个.</li>
+<li>$ 我远视&hellip;这一串玩意儿我就看到了最后一个.</li>
+<li></li>
+</ul></li>
+<li>吃货代表数量
+
+<ul>
+<li>暴食
+
+<ul>
+<li>* 我的胃口从0到无限大!</li>
+<li>+ 我的胃口从1到无限大!</li>
+</ul></li>
+<li>有节制
+
+<ul>
+<li>? 瞧瞧你们那样儿!丢不丢人呐,我最多吃一个</li>
+<li>? 不仅不贪吃,还不许别人贪吃.只要它跟在另外两个暴食者后面,就会起到监督的作用,让两人见好就好.</li>
+<li>{2}俺们东北人只吃两个馒头<del>~少了我不干</del>~依阿伊阿伊啊~~~</li>
+<li>{2,}窝得广东银,最少要次两过啦!</li>
+<li>{2,3}二三之间~天昏地暗~</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+<li><p>然后就是括号啦,尽是些大佬</p>
+
+<ul>
+<li>()小括号是间谍头子,要罩住自己人.括号里的兄弟我们风雨同舟!一起玩贪玩蓝月!</li>
+<li>[]中括号是</li>
+</ul></li>
+
+<li><p>最后一个 \ 它是世外高人,能帮助间谍背叛阵营,或者帮叛徒重回阵营</p></li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://eterlan.github.io/tags/note">Note</a></span><span class="tag"><a href="https://eterlan.github.io/tags/regex">Regex</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>36 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-06-19 14:40 &#43;0800</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+                        <span class="button previous">
+                            <a href="https://eterlan.github.io/posts/2019/06/my-favourite-game-the-last-of-us/">
+                                <span class="button__icon">←</span>
+                                <span class="button__text">My favourite Game - The Last of Us</span>
+                            </a>
+                        </span>
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://eterlan.github.io/posts/2019/06/test-behavior-of-nested-struct-in-unity-ecs/">
+                                <span class="button__text">Test behavior of nested struct in Unity ECS</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://eterlan.github.io">eterlan</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://eterlan.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>

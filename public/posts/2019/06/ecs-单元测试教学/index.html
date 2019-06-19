@@ -18,12 +18,12 @@ FAQ：
 system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem { protected override void OnUpdate() { Entities.ForEach((ref T t) =&amp;gt; { t.point.X &#43;= 1; t.forTest &#43;= 1; }); } } component using System; using Unity.Entities;[Serializable] public struct T : IComponentData { public Point point; public int forTest; } public struct Point { public int X; public int Y; } 写单元测试 准备工作 翻一翻源码，可以看到Unity自个儿的单元测试是继承自ECSTestFixture，其目的是做一些准备工作。我们也有样学样，否则的话World 和 EntityManager都是空值。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/" />
+<link rel="canonical" href="https://eterlan.github.io/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/" />
 
 
 <title>
     
-    ECS 单元测试教学 :: Hello Friend NG  — Hello Friend NG Theme
+    ECS 单元测试教学 :: Greeting.  — Hello Friend NG Theme
     
 </title>
 
@@ -34,16 +34,16 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
 
 
 
-<link rel="stylesheet" href="https://example.com/main.min.d90905eb29b71569a516566cd9662312bee9ab021c760de6949cdc92d6688be9.css">
+<link rel="stylesheet" href="/main.min.d90905eb29b71569a516566cd9662312bee9ab021c760de6949cdc92d6688be9.css">
 
 
 
-<link rel="apple-touch-icon" sizes="180x180" href="https://example.com/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://example.com/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://example.com/favicon-16x16.png">
-<link rel="manifest" href="https://example.com/site.webmanifest">
-<link rel="mask-icon" href="https://example.com/safari-pinned-tab.svg" color="#252627">
-<link rel="shortcut icon" href="https://example.com/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="/favicon.ico">
 <meta name="theme-color" content="#252627">
 <meta itemprop="name" content="ECS 单元测试教学">
 <meta itemprop="description" content="网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。
@@ -65,7 +65,7 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
 
 <meta itemprop="keywords" content="Unity,ECS,Unit Test," />
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://example.com"/>
+<meta name="twitter:image" content="https://eterlan.github.io"/>
 
 <meta name="twitter:title" content="ECS 单元测试教学"/>
 <meta name="twitter:description" content="网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。
@@ -95,7 +95,7 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
         <div class="container">
             <header class="header">
     <span class="header__inner">
-        <a href="https://example.com/" style="text-decoration: none;">
+        <a href="/" style="text-decoration: none;">
     <div class="logo">
         
             <span class="logo__mark">></span>
@@ -109,7 +109,7 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
         <span class="header__right">
             
                 <nav class="menu">
-    <ul class="menu__inner"><li><a href="https://example.com/about/">About</a></li><li><a href="https://example.com/posts/">Posts</a></li>
+    <ul class="menu__inner"><li><a href="https://eterlan.github.io/about/">About</a></li><li><a href="https://eterlan.github.io/posts/">Posts</a></li>
     </ul>
 </nav>
 
@@ -145,7 +145,7 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
         </div>
 
         <article>
-            <h1 class="post-title"><a href="https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/">ECS 单元测试教学</a></h1>
+            <h1 class="post-title"><a href="https://eterlan.github.io/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/">ECS 单元测试教学</a></h1>
 
             
 
@@ -276,7 +276,7 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
 
         <div class="post-info">
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://example.com/tags/unity">Unity</a></span><span class="tag"><a href="https://example.com/tags/ecs">ECS</a></span><span class="tag"><a href="https://example.com/tags/unit-test">Unit Test</a></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://eterlan.github.io/tags/unity">Unity</a></span><span class="tag"><a href="https://eterlan.github.io/tags/ecs">ECS</a></span><span class="tag"><a href="https://eterlan.github.io/tags/unit-test">Unit Test</a></span>
                 </p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>133 Words</p>
@@ -284,6 +284,26 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-06-19 14:40 &#43;0800</p>
         </div>
 
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://eterlan.github.io/posts/2019/06/gamestoryweek2/">
+                                <span class="button__text">GameStoryWeek2</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
         
 
         
@@ -297,10 +317,10 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
         <div class="footer__content">
             <span>&copy; 2019</span>
             
-                <span><a href="https://example.com">eterlan</a></span>
+                <span><a href="https://eterlan.github.io">eterlan</a></span>
             
             <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
-            <span> <a href="https://example.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            <span> <a href="https://eterlan.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
         </div>
     </div>
     <div class="footer__inner">
@@ -324,7 +344,7 @@ system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem {
 
 
 
-<script type="text/javascript" src="https://example.com/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+<script type="text/javascript" src="/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
 
 
 

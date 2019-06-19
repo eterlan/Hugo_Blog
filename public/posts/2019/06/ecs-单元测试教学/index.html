@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="eterlan ">
+<meta name="description"
+    content="网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。
+第一步 打开Unity单元测试的界面 位于Window/General/TestRunner。
+第二步 建立TestFolder 位于Assets/Create/Test/Test Assembly Folder
+FAQ：
+ 为什么要用asmdef？  我们只希望测试这一小片代码，因此不希望每次测试都让unity重新编译其他部分，因此只添加几个测试需要的依赖文件，这样可以让测试跑的很快。
+ 为什么要勾上Test Assemblies？  这样可以在打包时忽略这块代码，范围是该文件夹以内的代码。
+ 为什么只勾上Editor？  因为我们只在编辑器内需要这块代码。
+ 写好待测试的系统system与组件component  这里待测试的是ref关键字能否作用到嵌套struct中的内容。
+system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem { protected override void OnUpdate() { Entities.ForEach((ref T t) =&amp;gt; { t.point.X &#43;= 1; t.forTest &#43;= 1; }); } } component using System; using Unity.Entities;[Serializable] public struct T : IComponentData { public Point point; public int forTest; } public struct Point { public int X; public int Y; } 写单元测试 准备工作 翻一翻源码，可以看到Unity自个儿的单元测试是继承自ECSTestFixture，其目的是做一些准备工作。我们也有样学样，否则的话World 和 EntityManager都是空值。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/" />
+
+
+<title>
+    
+    ECS 单元测试教学 :: Hello Friend NG  — Hello Friend NG Theme
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://example.com/main.min.d90905eb29b71569a516566cd9662312bee9ab021c760de6949cdc92d6688be9.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://example.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://example.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://example.com/favicon-16x16.png">
+<link rel="manifest" href="https://example.com/site.webmanifest">
+<link rel="mask-icon" href="https://example.com/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://example.com/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="ECS 单元测试教学">
+<meta itemprop="description" content="网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。
+第一步 打开Unity单元测试的界面 位于Window/General/TestRunner。
+第二步 建立TestFolder 位于Assets/Create/Test/Test Assembly Folder
+FAQ：
+ 为什么要用asmdef？  我们只希望测试这一小片代码，因此不希望每次测试都让unity重新编译其他部分，因此只添加几个测试需要的依赖文件，这样可以让测试跑的很快。
+ 为什么要勾上Test Assemblies？  这样可以在打包时忽略这块代码，范围是该文件夹以内的代码。
+ 为什么只勾上Editor？  因为我们只在编辑器内需要这块代码。
+ 写好待测试的系统system与组件component  这里待测试的是ref关键字能否作用到嵌套struct中的内容。
+system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem { protected override void OnUpdate() { Entities.ForEach((ref T t) =&gt; { t.point.X &#43;= 1; t.forTest &#43;= 1; }); } } component using System; using Unity.Entities;[Serializable] public struct T : IComponentData { public Point point; public int forTest; } public struct Point { public int X; public int Y; } 写单元测试 准备工作 翻一翻源码，可以看到Unity自个儿的单元测试是继承自ECSTestFixture，其目的是做一些准备工作。我们也有样学样，否则的话World 和 EntityManager都是空值。">
+
+
+<meta itemprop="datePublished" content="2019-06-19T14:40:12&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-19T14:40:12&#43;08:00" />
+<meta itemprop="wordCount" content="133">
+
+
+
+<meta itemprop="keywords" content="Unity,ECS,Unit Test," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com"/>
+
+<meta name="twitter:title" content="ECS 单元测试教学"/>
+<meta name="twitter:description" content="网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。
+第一步 打开Unity单元测试的界面 位于Window/General/TestRunner。
+第二步 建立TestFolder 位于Assets/Create/Test/Test Assembly Folder
+FAQ：
+ 为什么要用asmdef？  我们只希望测试这一小片代码，因此不希望每次测试都让unity重新编译其他部分，因此只添加几个测试需要的依赖文件，这样可以让测试跑的很快。
+ 为什么要勾上Test Assemblies？  这样可以在打包时忽略这块代码，范围是该文件夹以内的代码。
+ 为什么只勾上Editor？  因为我们只在编辑器内需要这块代码。
+ 写好待测试的系统system与组件component  这里待测试的是ref关键字能否作用到嵌套struct中的内容。
+system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem { protected override void OnUpdate() { Entities.ForEach((ref T t) =&gt; { t.point.X &#43;= 1; t.forTest &#43;= 1; }); } } component using System; using Unity.Entities;[Serializable] public struct T : IComponentData { public Point point; public int forTest; } public struct Point { public int X; public int Y; } 写单元测试 准备工作 翻一翻源码，可以看到Unity自个儿的单元测试是继承自ECSTestFixture，其目的是做一些准备工作。我们也有样学样，否则的话World 和 EntityManager都是空值。"/>
+
+
+
+
+<meta property="article:published_time" content="2019-06-19 14:40:12 &#43;0800 CST" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://example.com/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ cd /home/</span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://example.com/about/">About</a></li><li><a href="https://example.com/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>One minute
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/">ECS 单元测试教学</a></h1>
+
+            
+
+            <div class="post-content">
+                
+
+<p>网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。</p>
+
+<h3 id="第一步-打开unity单元测试的界面">第一步 打开Unity单元测试的界面</h3>
+
+<p>位于Window/General/TestRunner。</p>
+
+<h3 id="第二步-建立testfolder">第二步 建立TestFolder</h3>
+
+<p>位于Assets/Create/Test/Test Assembly Folder</p>
+
+<p>FAQ：</p>
+
+<ol>
+<li>为什么要用asmdef？</li>
+</ol>
+
+<p>我们只希望测试这一小片代码，因此不希望每次测试都让unity重新编译其他部分，因此只添加几个测试需要的依赖文件，这样可以让测试跑的很快。</p>
+
+<ol>
+<li>为什么要勾上Test Assemblies？</li>
+</ol>
+
+<p>这样可以在打包时忽略这块代码，范围是该文件夹以内的代码。</p>
+
+<ol>
+<li>为什么只勾上Editor？</li>
+</ol>
+
+<p>因为我们只在编辑器内需要这块代码。</p>
+
+<ol>
+<li>写好待测试的系统system与组件component</li>
+</ol>
+
+<p>这里待测试的是ref关键字能否作用到嵌套struct中的内容。</p>
+
+<h4 id="system">system</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#66d9ef">using</span> Unity.Entities;
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UpdateNestedStruct</span> : ComponentSystem
+{
+    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">void</span> OnUpdate()
+    {
+        Entities.ForEach((<span style="color:#66d9ef">ref</span> T t) =&gt;
+        {
+            t.point.X += <span style="color:#ae81ff">1</span>;
+            t.forTest += <span style="color:#ae81ff">1</span>;
+        });
+    }
+}</code></pre></div>
+<h4 id="component">component</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#66d9ef">using</span> System;
+<span style="color:#66d9ef">using</span> Unity.Entities;<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">
+</span><span style="color:#a6e22e">[Serializable]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">T</span> : IComponentData
+{
+    <span style="color:#66d9ef">public</span> Point point;
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> forTest;
+}
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Point</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> X;
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Y;
+}</code></pre></div>
+<h3 id="写单元测试">写单元测试</h3>
+
+<h4 id="准备工作">准备工作</h4>
+
+<p>翻一翻源码，可以看到Unity自个儿的单元测试是继承自ECSTestFixture，其目的是做一些准备工作。我们也有样学样，否则的话World 和 EntityManager都是空值。</p>
+
+<p>一翻尝试之后，发现无法直接继承或者是调用Unity.Entities.Test这个库。解决办法是把ECSTestsFixture和TestComponent从Unity.Entities.Test中复制到自己的测试文件夹。</p>
+
+<h4 id="手动update自己的系统">手动Update自己的系统</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C#" data-lang="C#"><span style="color:#66d9ef">using</span> NUnit.Framework;<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">
+</span><span style="color:#a6e22e">[TestFixture]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UpdateNestedStructTests</span> : ECSTestsFixture
+{<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">    [Test]</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> _0_Update_Normal_Var()
+    {
+        <span style="color:#66d9ef">var</span> entity = m_Manager.CreateEntity(<span style="color:#66d9ef">typeof</span>(T));
+
+        World.GetOrCreateSystem&lt;UpdateNestedStruct&gt;().Update();
+        <span style="color:#66d9ef">var</span> target = m_Manager.GetComponentData&lt;T&gt;(entity).forTest;
+        Assert.AreEqual(<span style="color:#ae81ff">1</span>,target);
+    }<span style="color:#a6e22e">
+</span><span style="color:#a6e22e">
+</span><span style="color:#a6e22e">    [Test]</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> _1_Update_Nested_Struct()
+    {
+        <span style="color:#66d9ef">var</span> entity = m_Manager.CreateEntity(<span style="color:#66d9ef">typeof</span>(T));
+        
+        World.GetOrCreateSystem&lt;UpdateNestedStruct&gt;().Update();
+        <span style="color:#66d9ef">var</span> target = m_Manager.GetComponentData&lt;T&gt;(entity).point.X;
+        Assert.AreEqual(<span style="color:#ae81ff">1</span>,target);
+    }
+}</code></pre></div>
+<p>写好测试，我们回到编辑器，选中需要测试的代码，并点击Run Selected。</p>
+
+<p>这样我们就写好一个ECS专用的单元测试了！</p>
+
+<p>可以看到，手动更新系统的方式，让ECS与笨重的MonoBehaviour的测试方式区别很大。这让我们可以随意地测试每小块代码。</p>
+
+<h3 id="reference">reference</h3>
+
+<ul>
+<li>5argon
+<a href="https://medium.com/@5argon/unity-ecs-unit-testing-problems-with-ecs-8f31c7a37386" target="_blank">https://medium.com/@5argon/unity-ecs-unit-testing-problems-with-ecs-8f31c7a37386</a></li>
+<li>infallible
+<a href="https://www.youtube.com/watch?v=Ibj7O_fQXKs" target="_blank">https://www.youtube.com/watch?v=Ibj7O_fQXKs</a></li>
+<li>Discuss
+<a href="https://forum.unity.com/threads/how-to-unit-test-where-is-the-unity-entities-tests-namespace.540251/" target="_blank">https://forum.unity.com/threads/how-to-unit-test-where-is-the-unity-entities-tests-namespace.540251/</a></li>
+</ul>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://example.com/tags/unity">Unity</a></span><span class="tag"><a href="https://example.com/tags/ecs">ECS</a></span><span class="tag"><a href="https://example.com/tags/unit-test">Unit Test</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>133 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-06-19 14:40 &#43;0800</p>
+        </div>
+
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://example.com">eterlan</a></span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span> <a href="https://example.com/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://example.com/bundle.min.9e52e68b082cf2a30a7fead88260edb8818fbd7f7831e39674917d4539ec75df41ba88eaddfbd916594ab4fb2a31913b46cf2d6094cf80381edb8c632512a8ca.js" integrity="sha512-nlLmiwgs8qMKf&#43;rYgmDtuIGPvX94MeOWdJF9RTnsdd9Buojq3fvZFllKtPsqMZE7Rs8tYJTPgDge24xjJRKoyg=="></script>
+
+
+
+    </body>
+</html>

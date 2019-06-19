@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ecs on Hello Friend NG</title>
+    <link>https://example.com/tags/ecs/</link>
+    <description>Recent content in Ecs on Hello Friend NG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 19 Jun 2019 14:40:12 +0800</lastBuildDate>
+    
+	<atom:link href="https://example.com/tags/ecs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ECS 单元测试教学</title>
+      <link>https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://example.com/posts/2019/06/ecs-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%95%99%E5%AD%A6/</guid>
+      <description>网上的教学视频有些过时，因此想写一个新的教学，教大家如何对自己的ECS代码进行单元测试。
+第一步 打开Unity单元测试的界面 位于Window/General/TestRunner。
+第二步 建立TestFolder 位于Assets/Create/Test/Test Assembly Folder
+FAQ：
+ 为什么要用asmdef？  我们只希望测试这一小片代码，因此不希望每次测试都让unity重新编译其他部分，因此只添加几个测试需要的依赖文件，这样可以让测试跑的很快。
+ 为什么要勾上Test Assemblies？  这样可以在打包时忽略这块代码，范围是该文件夹以内的代码。
+ 为什么只勾上Editor？  因为我们只在编辑器内需要这块代码。
+ 写好待测试的系统system与组件component  这里待测试的是ref关键字能否作用到嵌套struct中的内容。
+system using Unity.Entities; public class UpdateNestedStruct : ComponentSystem { protected override void OnUpdate() { Entities.ForEach((ref T t) =&amp;gt; { t.point.X += 1; t.forTest += 1; }); } } component using System; using Unity.Entities;[Serializable] public struct T : IComponentData { public Point point; public int forTest; } public struct Point { public int X; public int Y; } 写单元测试 准备工作 翻一翻源码，可以看到Unity自个儿的单元测试是继承自ECSTestFixture，其目的是做一些准备工作。我们也有样学样，否则的话World 和 EntityManager都是空值。</description>
+    </item>
+    
+  </channel>
+</rss>

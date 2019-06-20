@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Untagged on Greeting.</title>
+    <link>https://eterlan.github.io/tags/untagged/</link>
+    <description>Recent content in Untagged on Greeting.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 20 Jun 2019 01:23:41 +0800</lastBuildDate>
+    
+	<atom:link href="https://eterlan.github.io/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Testddd</title>
+      <link>https://eterlan.github.io/posts/2019/06/testddd/</link>
+      <pubDate>Thu, 20 Jun 2019 01:23:41 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/testddd/</guid>
+      <description>Hello World三大的撒的</description>
+    </item>
+    
+  </channel>
+</rss>

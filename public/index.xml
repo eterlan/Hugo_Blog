@@ -6,19 +6,10 @@
     <description>Recent content on Greeting.</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 20 Jun 2019 01:23:41 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 19 Jun 2019 14:40:12 +0800</lastBuildDate>
     
 	<atom:link href="https://eterlan.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Testddd</title>
-      <link>https://eterlan.github.io/posts/2019/06/testddd/</link>
-      <pubDate>Thu, 20 Jun 2019 01:23:41 +0800</pubDate>
-      
-      <guid>https://eterlan.github.io/posts/2019/06/testddd/</guid>
-      <description>Hello World三大的撒的</description>
-    </item>
     
     <item>
       <title>ECS 单元测试教学</title>
@@ -123,6 +114,29 @@ EntityManager.GetComponentVersion() 数据变化 顾名思义。方法有三种�
 1. Chunk检查 原理  GlobalSystemVersion为记录一个世界所有系统更新信息的版本号。在每一个系统更新之前，GSV++。 LastSystemVersion为系统记录自己的版本号。在某系统更新之后，它会保存GSV，含义是上次运行时的版本号，直到下次某系统更新之后，它的版本号不会更改 每一种Component，在System申请写入权限的时候，都会记录该System的LSV 获取方式为chunk.GetArch  因此，if ( ComponentVer &amp;gt; LSV ) 说明该Component被修改了（有系统获得了写入权限）。而之所以不用考虑等于，是因为除非只有1个系统，不然是不会有等于的情况的，不能理解的话可以画图思考一下。
 注意这个信息时效性只有一帧，从上次该系统更新后到这次更新后的一帧，因此在这次更新中，修改Component后查询是否改变，答案是True，反之为False。
 举例  系统的更新顺序为A-&amp;gt;B-&amp;gt;C-&amp;gt;A 那么GSV ：0 -&amp;gt; 1 -&amp;gt; 2 -&amp;gt; 3，每个系统更新之前+1 当数据在B系统被写入，Component就记住了B的GSV = 1 当我们在第二次轮到A系统的时候监测是否Component被改动，DidChange自动使用A系统上次的GSV记录 LSV = 0 与 Component记录的信息CV = 1做对比，发现CV &amp;gt; LSV，得知信息已经被更改了，返回True。  API chunk.</description>
+    </item>
+    
+    <item>
+      <title>自强之路</title>
+      <link>https://eterlan.github.io/posts/2019/06/%E8%87%AA%E5%BC%BA%E4%B9%8B%E8%B7%AF/</link>
+      <pubDate>Wed, 19 Jun 2019 14:40:12 +0800</pubDate>
+      
+      <guid>https://eterlan.github.io/posts/2019/06/%E8%87%AA%E5%BC%BA%E4%B9%8B%E8%B7%AF/</guid>
+      <description>近期周所周知的原因，全世界都在关注华为。
+任总受华为对外敏感关系部的请求，近期接受了非常多的采访。从中可一窥巨头的处世哲学。
+一开始我十分想不通，为何面对世界最强国家的接连打击，他总在赞美美国？他那真诚地微笑，从容地应对，让人很难与虚伪挂钩，但为什么？
+任老表示，别把用华为手机与爱国联系在一起，华为手机只是个产品，你喜欢就用，不喜欢就不用。我的家人也有很多用苹果的。
+这种道德捆绑于产品的进步毫无帮助，。爱它就要把它放在严酷的环境中自然竞争，让它越来越强大。
+特朗普帮我们省了100亿美元的广告费，1000亿美元的供应商违约费。
+女儿被抓，任老表示：&amp;rdquo;不经历磨难，怎能成就大事？&amp;rdquo;
+应对外媒的提问，任老表示：&amp;rdquo;最让我兴奋的事是特朗普打压华为，内部的滲透使堡垒腐蚀，外部的打压使堡垒坚固。”任总坦言，30年的时间让华为逐渐的腐化，堕落了。
+其实放到国家的层面何尝不是如此？80后90后已经和平太久了，短短不到百年前的历史距离这一代人似乎遥不可及。
+君不见叙利亚驻联合国代表向英美法代表申辩时，三方代表悍然离场，徒留他一人在一角默默叹气。弱国无外交。硝烟也许被其他方式掩盖，但世界还是那个弱肉强食的世界。
+任老接受的采访愈多，我惊讶的发现，这个面带微笑，赞美对手的老人，他是真的在摩拳擦掌，兴奋地睡不着觉。
+华为做下的每个决策放在今天来看，都正确无比，令人肃然起敬。包括不上市，不上市就不在乎财务报表，没有压力就可以不在乎外界的压力而专心搞研发。以及自研自用，不外销高科技技术。自研意味着自立，别人无法釜底抽薪，不外销意味着。包括与贫困地区交易，尽管不赚钱，但达到了将自研产品放到实际场景去应用的目的。
+这种宽广的胸襟，将中华民族数千年的智慧轻描淡写地展示给了所有人。以前常说，民国之后无大家，但事实证明，大家确实是存在的，但在平日里不显山露水。
+谢谢任老的教诲，吾辈当谨记于心。
+p.s. 本人语言水平比较差，很多话仅仅是组织一下油管上的社论。</description>
     </item>
     
   </channel>
